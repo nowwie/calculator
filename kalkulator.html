@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .calculator {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border: 5px solid #ffb3cc;
+        }
+
+        #display {
+            background-color: #ffb3cc;
+            font-size: 2.5em;
+            height: 100px;
+            text-align: right;
+            padding: 15px;
+            overflow: hidden;
+            white-space: nowrap;
+            border-radius: 15px;
+            border: 4px solid #ff6666;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 10px;
+        }
+
+        button {
+            background-color: #f5c6cb;
+            border: 4px solid #ff6666;
+            border-radius: 15px;
+            padding: 20px;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #fff;
+            width: 75px;
+            height: 75px;
+            outline: 3px solid #ff99aa;
+        }
+
+        button:hover {
+            background-color: #f8a5c2;
+            transform: scale(0.95);
+        }
+
+        button:active {
+            transform: scale(0.85);
+        }
+
+        button.operator {
+            background-color: #ffb3cc;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div id="display">0</div>
+        <table>
+            <tr>
+                <td><button class="operator" onclick="addToDisplay('+')">+</button></td>
+                <td><button class="operator" onclick="addToDisplay('-')">-</button></td>
+                <td><button class="operator" onclick="addToDisplay('x')">x</button></td>
+                <td><button class="operator" onclick="addToDisplay(':')">:</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="addToDisplay('7')">7</button></td>
+                <td><button onclick="addToDisplay('8')">8</button></td>
+                <td><button onclick="addToDisplay('9')">9</button></td>
+                <td rowspan="4"><button style="background-color: #80e0a7; width: 78px; height: 325px;" id="equal" onclick="calculate()">=</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="addToDisplay('4')">4</button></td>
+                <td><button onclick="addToDisplay('5')">5</button></td>
+                <td><button onclick="addToDisplay('6')">6</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="addToDisplay('1')">1</button></td>
+                <td><button onclick="addToDisplay('2')">2</button></td>
+                <td><button onclick="addToDisplay('3')">3</button></td>
+            </tr>
+            <tr>
+                <td><button onclick="addToDisplay('.')">.</button></td>
+                <td><button onclick="addToDisplay('0')">0</button></td>
+                <td><button style="background-color: #ff6666;" id="clear" onclick="clearDisplay()">C</button></td>
+            </tr>
+        </table>
+    </div>
+
+    <script>
+        function addToDisplay(value) {
+            let display = document.getElementById("display");
+            if (display.innerText === "0" && value !== '.') {
+                display.innerText = value;
+            } else {
+                display.innerText += value;
+            }
+        }
+
+        function clearDisplay() {
+            document.getElementById("display").innerText = "0";
+        }
+
+        function calculate() {
+            let display = document.getElementById("display");
+            try {
+                display.innerText = eval(display.innerText.replace('x', '*').replace(':', '/'));
+            } catch {
+                display.innerText = "Error";
+            }
+        }
+    </script>
+</body>
+</html>
